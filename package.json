@@ -1,0 +1,20 @@
+{
+  "name": "javascript-coding-problems-with-theory",
+  "version": "1.0.0",
+  "description": "This repository is created with an aim to talk about most asked JavaScript questions and coding problems for interviews.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Faheem-Khan97/javascript-coding-problems-with-theory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Faheem-Khan97/javascript-coding-problems-with-theory/issues"
+  },
+  "homepage": "https://github.com/Faheem-Khan97/javascript-coding-problems-with-theory#readme"
+}
