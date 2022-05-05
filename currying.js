@@ -37,3 +37,27 @@ function sum(a){
 }
 
 console.log(sum(1)(2)(3)(4)()); // 10
+
+
+// Coding Problem 2
+// Implement partial currying, meaning sum(2,3)(4) OR sum(2,3,4) OR sum(2)(3)(4) all should work and give answer as 9
+
+
+const sumn = (a,b,c) => a+b+c;
+
+function curry(sum){
+    return function curried(...args){
+        console.log(args)
+        if(sum.length <= args.length){
+            return sum(...args)
+        }
+        return function xy(...args2){
+            return curried(...args, ...args2);
+        }
+    }
+}
+
+const curriedSum = curry(sumn);
+console.log(curriedSum(6,7)(8)) // 21
+console.log(curriedSum(6)(7)(8)) // 21
+
