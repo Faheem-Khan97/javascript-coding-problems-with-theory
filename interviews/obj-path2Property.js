@@ -1,5 +1,5 @@
 /*
-Write a function that takes an oject and a path (in string format) as parameters
+Write a function that takes an object and a path (in string format) as parameters
 and returns the value from that object pointed by the path. Look at the example.
 
 ex- 1
