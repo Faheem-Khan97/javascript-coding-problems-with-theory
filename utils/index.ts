@@ -8,3 +8,19 @@ export function createAsyncTask(delay: number) {
     }, delay);
   });
 }
+
+export function reverseInPlace(
+  arr: number[],
+  startIndex = 0,
+  endIndex = arr.length - 1
+) {
+  for (
+    let i = startIndex;
+    i <= startIndex + Math.floor((endIndex - startIndex) / 2);
+    i++
+  ) {
+    const temp = arr[i];
+    arr[i] = arr[endIndex - i + startIndex];
+    arr[endIndex - i + startIndex] = temp;
+  }
+}
