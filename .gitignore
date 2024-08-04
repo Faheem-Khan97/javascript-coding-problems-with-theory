@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+
+# hide all the compiled js file from data-structures
+Data-Structures/**/*.js
