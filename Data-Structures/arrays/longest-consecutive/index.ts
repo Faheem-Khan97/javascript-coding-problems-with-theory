@@ -20,5 +20,32 @@ function longestConsecutive(nums: number[]): number {
 
   return c;
 }
-console.log(longestConsecutive([100,4,200,1,3,2]))
+console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
+
 // another solution without sorting
+
+function longestConsecutiveWithoutSorting(nums: number[]): number {
+  if (!nums.length) return 0;
+  let maxLen = 1;
+  let c = 1;
+  let numsMap = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    if (!numsMap.has(nums[i])) numsMap.set(nums[i], 1);
+  }
+
+  numsMap.forEach((_, curr) => {
+    if (!numsMap.has(curr - 1)) {
+      let newC = curr + 1;
+      while (numsMap.has(newC)) {
+        c++;
+        newC++;
+      }
+      maxLen = Math.max(c, maxLen);
+    }
+    c = 1;
+  });
+
+  return maxLen;
+}
+
+console.log(longestConsecutiveWithoutSorting([100, 4, 200, 1, 3, 2]));
