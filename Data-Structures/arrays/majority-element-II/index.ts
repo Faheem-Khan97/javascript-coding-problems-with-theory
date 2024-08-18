@@ -2,7 +2,7 @@ export {};
 // https://leetcode.com/problems/majority-element-ii/
 // keep the count or each element in a map. and check if the count exceeds the Math.floor(nums.length / 3)
 // TC -> O(n) -> just a single loop
-// SC -> O(1) -> the res array will have max 2 elements
+// SC -> O(n) -> the res array will have max 2 elements but the map can have n elements in worst case.
 
 function majorityElement(nums: number[]): number[] {
   const majOccurrence = Math.floor(nums.length / 3);
