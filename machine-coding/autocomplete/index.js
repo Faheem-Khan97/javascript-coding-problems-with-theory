@@ -36,8 +36,12 @@ const renderSuggestions = (itemsList, keyword) => {
   listWrapper.classList.add("suggestion-wrapper-visible");
 };
 
-const searchChangeHandler = async (event) => {
+const searchChangeHandler = (event) => {
   const value = event.target.value;
+  renderForGivenInput(value);
+};
+
+const renderForGivenInput = async (value) => {
   if (value) {
     const suggestions = await getSuggestions(value);
     renderSuggestions(suggestions, value);
@@ -54,10 +58,16 @@ const selectHandler = (event) => {
   }
 };
 
+const onFocus = () => {
+  renderForGivenInput(inputElement.value);
+};
+
 inputElement.addEventListener("input", debounce(searchChangeHandler));
+inputElement.addEventListener("focus", onFocus);
 listWrapper.addEventListener("click", selectHandler);
 
 document.addEventListener("click", (event) => {
+  event.stopPropagation();
   if (!autoCompleteWrapper.contains(event.target)) {
     resetList();
   }
