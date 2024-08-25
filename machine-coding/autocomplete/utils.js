@@ -10,3 +10,15 @@ export const getSuggestions = (keyword) => {
     }, 1500);
   });
 };
+
+export const debounce = (fn, delay = 400) => {
+  let timeOutId;
+  return function () {
+    const context = this;
+    const args = arguments;
+    if (timeOutId) clearTimeout(timeOutId);
+    timeOutId = setTimeout(() => {
+      fn.apply(context, args);
+    }, delay);
+  };
+};

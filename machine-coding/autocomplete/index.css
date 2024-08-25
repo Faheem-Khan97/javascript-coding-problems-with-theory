@@ -1,0 +1,49 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.main {
+  width: 400px;
+  margin: 12px auto;
+  display: grid;
+  gap: 16px;
+}
+.main-wrapper {
+  position: relative;
+}
+input {
+  width: 100%;
+  height: 44px;
+  border: 1.5px solid gray;
+  outline: none;
+  border-radius: 6px;
+  padding: 0px 6px;
+}
+
+input:focus {
+  border-color: rgb(120, 120, 255);
+}
+
+.suggestion-wrapper {
+  display: none;
+  border: 1px solid rgb(213, 213, 213);
+  position: absolute;
+  top: 46px;
+  right: 0;
+  left: 0;
+  border-radius: 6px;
+  z-index: 1000000000;
+  background-color: white;
+}
+.suggestion-wrapper-visible {
+  display: block;
+}
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid rgb(224, 224, 224);
+}
+.suggestion-item:last-child {
+  border-bottom: none;
+}

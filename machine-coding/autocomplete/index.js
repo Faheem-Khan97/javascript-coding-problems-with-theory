@@ -1,12 +1,47 @@
-import { getSuggestions } from "./utils.js";
+import { debounce, getSuggestions } from "./utils.js";
 
 const inputElement = document.getElementById("search-input");
 const searchWrapper = document.getElementById("suggestions-list");
 
-const searchChangeHandler = async (event) => {
-  const value = event.target.value;
-  const suggestions = await getSuggestions(value);
-  console.log({ suggestions });
+const resetList = () => {
+  searchWrapper.classList.remove("suggestion-wrapper-visible");
 };
 
-inputElement.addEventListener("keyup", searchChangeHandler);
+const renderSuggestions = (itemsList) => {
+  if (!itemsList.length) {
+    resetList();
+    return;
+  }
+
+  const suggestionsFragement = document.createDocumentFragment();
+  itemsList.forEach((item) => {
+    const element = document.createElement("div");
+    element.textContent = item;
+    element.classList.add("suggestion-item");
+    element.setAttribute("data-item", item);
+    suggestionsFragement.append(element);
+  });
+  searchWrapper.replaceChildren(suggestionsFragement);
+  searchWrapper.classList.add("suggestion-wrapper-visible");
+};
+
+const searchChangeHandler = async (event) => {
+  const value = event.target.value;
+  if (value) {
+    const suggestions = await getSuggestions(value);
+    renderSuggestions(suggestions);
+  } else {
+    resetList();
+  }
+};
+
+const selectHandler = (event) => {
+  const { item } = event.target.dataset;
+  if (item) {
+    inputElement.value = item;
+    resetList();
+  }
+};
+
+inputElement.addEventListener("input", debounce(searchChangeHandler));
+searchWrapper.addEventListener("click", selectHandler);
