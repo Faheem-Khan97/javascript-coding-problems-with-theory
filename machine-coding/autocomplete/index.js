@@ -1,10 +1,11 @@
 import { debounce, getSuggestions, splitByKeyword } from "./utils.js";
 
 const inputElement = document.getElementById("search-input");
-const searchWrapper = document.getElementById("suggestions-list");
+const listWrapper = document.getElementById("suggestions-list");
+const autoCompleteWrapper = document.getElementsByClassName("main-wrapper")[0];
 
 const resetList = () => {
-  searchWrapper.classList.remove("suggestion-wrapper-visible");
+  listWrapper.classList.remove("suggestion-wrapper-visible");
 };
 
 const renderSuggestions = (itemsList, keyword) => {
@@ -31,8 +32,8 @@ const renderSuggestions = (itemsList, keyword) => {
     element.setAttribute("data-item", item);
     suggestionsFragement.append(element);
   });
-  searchWrapper.replaceChildren(suggestionsFragement);
-  searchWrapper.classList.add("suggestion-wrapper-visible");
+  listWrapper.replaceChildren(suggestionsFragement);
+  listWrapper.classList.add("suggestion-wrapper-visible");
 };
 
 const searchChangeHandler = async (event) => {
@@ -54,4 +55,10 @@ const selectHandler = (event) => {
 };
 
 inputElement.addEventListener("input", debounce(searchChangeHandler));
-searchWrapper.addEventListener("click", selectHandler);
+listWrapper.addEventListener("click", selectHandler);
+
+document.addEventListener("click", (event) => {
+  if (!autoCompleteWrapper.contains(event.target)) {
+    resetList();
+  }
+});
