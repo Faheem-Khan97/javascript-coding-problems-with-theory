@@ -24,3 +24,17 @@ export function reverseInPlace(
     arr[endIndex - i + startIndex] = temp;
   }
 }
+
+export function chopInputArray<T>(arr: T[], size: number): Array<T[]> {
+  const res = [];
+  let startIndex = 0;
+  let endIndex = size - 1;
+
+  while (startIndex < arr.length) {
+    const r = arr.slice(startIndex, endIndex + 1);
+    res.push(r);
+    startIndex += size;
+    endIndex += size;
+  }
+  return res;
+}

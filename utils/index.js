@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.reverseInPlace = exports.createAsyncTask = void 0;
+exports.chopInputArray = exports.reverseInPlace = exports.createAsyncTask = void 0;
 function createAsyncTask(delay) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
@@ -22,3 +22,16 @@ function reverseInPlace(arr, startIndex, endIndex) {
     }
 }
 exports.reverseInPlace = reverseInPlace;
+function chopInputArray(arr, size) {
+    var res = [];
+    var startIndex = 0;
+    var endIndex = size - 1;
+    while (startIndex < arr.length) {
+        var r = arr.slice(startIndex, endIndex + 1);
+        res.push(r);
+        startIndex += size;
+        endIndex += size;
+    }
+    return res;
+}
+exports.chopInputArray = chopInputArray;

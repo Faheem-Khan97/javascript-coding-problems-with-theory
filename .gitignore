@@ -106,3 +106,7 @@ dist
 
 # hide all the compiled js file from data-structures
 Data-Structures/**/*.js
+async/**/*.js
+general/**/*.js
+
+
