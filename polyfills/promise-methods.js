@@ -17,12 +17,14 @@ const getAsyncTask = (delay) => {
 class myPromise {
   static all(thenableList) {
     return new Promise((resolve, reject) => {
-      const res = [];
-      thenableList.forEach((promise) => {
+      const res = new Array(thenableList.length);
+      let pending = res.length;
+      thenableList.forEach((promise, index) => {
         promise.then(
           (value) => {
-            res.push(value);
-            if (res.length == thenableList.length) {
+            res[index] = value;
+            pending--;
+            if (pending == 0) {
               resolve(res);
             }
           },
@@ -36,23 +38,25 @@ class myPromise {
 
   static allSettled(thenableList) {
     return new Promise((resolve, reject) => {
-      const res = [];
-      thenableList.forEach((promise) => {
+      const res = new Array(thenableList.length);
+      let pending = res.length;
+      thenableList.forEach((promise, index) => {
         promise
           .then((value) => {
-            res.push({
-              status: "fullfilled",
+            res[index] = {
+              status: "fulfilled",
               value: value,
-            });
+            };
           })
           .catch((err) => {
-            res.push({
+            res[index] = {
               status: "rejected",
               reason: err,
-            });
+            };
           })
           .finally(() => {
-            if (thenableList.length == res.length) {
+            pending--;
+            if (pending == 0) {
               resolve(res);
             }
           });
@@ -65,19 +69,21 @@ class myPromise {
       if (thenableList.length == 0) {
         reject({ status: "rejected", reason: "empty list" });
       } else {
-        const arregateError = {
+        const aggregate = {
           status: "rejected",
           reason: [],
         };
-        thenableList.forEach((promise) => {
+        let pending = thenableList.length;
+        thenableList.forEach((promise, index) => {
           promise
             .then((value) => {
-              resolve({ status: "fullfilled", value });
+              resolve(value);
             })
             .catch((reason) => {
-              arregateError.reason.push(reason);
-              if (arregateError.reason.length == thenableList.length) {
-                reject(arregateError);
+              aggregate.reason[index] = reason;
+              pending--;
+              if (pending == 0) {
+                reject(aggregate);
               }
             });
         });
